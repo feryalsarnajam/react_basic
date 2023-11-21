@@ -73,8 +73,11 @@ export const RecipeListPage = () => {
               ))}
             </HStack>
 
-            <Box marginBottom='0'>Cautions:</Box>
-            <HStack display='flex' justify-content='space-around' spacing={2}>
+            {item.recipe.cautions.length > 0 && (
+              <Box marginBottom='0'>Cautions:</Box>
+            )}
+
+            <HStack display='flex' justifyContent='center' spacing={2}>
               {item.recipe.cautions.map((caution) => (
                 <Box
                   key={caution}
