@@ -23,6 +23,7 @@ export const App = () => {
               justify='center'>
               {greeting}
             </Heading>
+          
             <RecipeListPage clickFn={setSelectedRecipe} />
           </>
         )}
