@@ -4,6 +4,7 @@ import {
   CardBody,
   Image,
   HStack,
+  Stack,
   Text,
   Box,
   SimpleGrid,
@@ -13,7 +14,7 @@ import {
 import { data } from "../utils/data";
 import { useState } from "react";
 
-export const RecipeListPage = () => {
+export const RecipeListPage = ({ clickFn }) => {
   const [searchField, setSearchField] = useState("");
 
   const handleChange = (event) => setSearchField(event.target.value);
@@ -32,80 +33,101 @@ export const RecipeListPage = () => {
       <Input
         onChange={handleChange}
         backgroundColor='white'
-        width='30%'
-        display='flex'></Input>
+        width='40%'
+        placeholder='Search recipes'
+        _placeholder={{ color: "gray.400" }}
+        border={"none"}
+        position={"relative"}
+        left={"30%"}></Input>
 
-      <SimpleGrid padding={20} column={4} spacing={7} minChildWidth='200px'>
+      <SimpleGrid padding={16} column={4} spacing={7} minChildWidth={56}>
         {matchedRecipes.map((item) => (
-          <Card height={400} bg='white' key={item.recipe.label}>
-            <CardHeader p={0}>
+          <Card
+            bg='white'
+            key={item.recipe.label}
+            onClick={() => clickFn(item.recipe.label)}>
+            <CardHeader padding={0}>
               <Image
                 height={40}
-                width='100%'
+                width={"full"}
                 src={item.recipe.image}
                 borderTopLeftRadius='md'
                 borderTopRightRadius='md'
               />
             </CardHeader>
 
-            <CardBody textAlign='center' justify-content='center'>
-              <Text>{item.recipe.mealType.join("/").toUpperCase()}</Text>
-              <Heading size='md'>{item.recipe.label}</Heading>
+            <CardBody
+              textAlign={"center"}
+              justifyContent={"center"}
+              display={"flex"}
+              flexWrap={"wrap"}
+              paddingBottom={10}>
+              <Text width={"100%"}>
+                {item.recipe.mealType.join("/").toUpperCase()}
+              </Text>
+              <Heading fontSize={"medium"}>{item.recipe.label}</Heading>
 
               <HStack
-                display='flex'
-                justifyContent='center'
                 spacing={2}
-                margin={2}>
+                margin={0.5}
+                width={"100%"}
+                justifyContent={"center"}>
                 {item.recipe.healthLabels.includes("Vegan") && (
-                  <Box fontWeight='semibold' fontSize='12px' bg='purple.200'>
+                  <Box
+                    fontWeight={"semibold"}
+                    fontSize={"small"}
+                    bg='purple.100'>
                     VEGAN
                   </Box>
                 )}
                 {item.recipe.healthLabels.includes("Vegetarian") && (
-                  <Box fontWeight='semibold' fontSize='12px' bg='purple.200'>
+                  <Box
+                    fontWeight={"semibold"}
+                    fontSize={"small"}
+                    bg='purple.100'>
                     VEGETARIAN
                   </Box>
                 )}
               </HStack>
 
               <HStack
-                display='flex'
-                justifyContent='center'
+                width={"100%"}
+                justifyContent={"center"}
                 spacing={2}
-                margin={2}>
+                margin={0.5}>
                 {item.recipe.dietLabels.map((dietLabel) => (
                   <Box
                     key={dietLabel}
-                    fontWeight='semibold'
-                    fontSize='12px'
-                    bg='green.200'>
+                    fontWeight={"semibold"}
+                    fontSize={"small"}
+                    bg='green.100'>
                     {dietLabel.toUpperCase()}
                   </Box>
                 ))}
               </HStack>
 
-              <HStack display='flex' justifyContent='center' spacing={2}>
+              <HStack width={"100%"} justifyContent={"center"} spacing={2}>
                 <p>Dish:</p>
                 {item.recipe.dishType.map((dishType) => (
-                  <Box key={dishType} bg='white.200'>
+                  <Box key={dishType} bg='white' fontWeight={"semibold"}>
                     {dishType}
                   </Box>
                 ))}
               </HStack>
 
               {item.recipe.cautions.length > 0 && (
-                <Box marginBottom='0'>Cautions:</Box>
+                <Box marginBottom='0' width={"100%"} justifyContent={"center"}>
+                  Cautions:
+                </Box>
               )}
 
-              <HStack display='flex' justifyContent='center' spacing={2}>
+              <HStack justifyContent={"center"} spacing={2}>
                 {item.recipe.cautions.map((caution) => (
                   <Box
                     key={caution}
-                    bg='orange.200'
-                    fontSize='12px'
-                    fontWeight='semibold'
-                    margin='10px'>
+                    bg='red.100'
+                    fontWeight={"semibold"}
+                    fontSize={"small"}>
                     {caution.toUpperCase()}
                   </Box>
                 ))}
