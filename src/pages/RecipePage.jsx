@@ -106,35 +106,38 @@ export const RecipePage = ({ recipe, clickFn }) => {
             paddingLeft={6}>
             <GridItem>
               <Box fontSize={"small"}>Health Labels: </Box>
-              {/* <HStack isInline spacing={2} justify={"flex-start"} width={"100%"}>
-                {match.recipe.healthLabels.map((healthLabel) => (
-                  <Box
-                    width={"30%"}
-                    key={healthLabel}
-                    bg='purple.100'
-                    fontWeight={"semibold"}
-                    fontSize={"small"}>
-                    {healthLabel.toUpperCase()}
-                  </Box>
-                ))} */}
 
-              <HStack
-                listStyleType={"none"}
-                marginLeft={0}
-                wrap={"wrap"}
-                alignItems={"flex-end"}>
-                {match.recipe.healthLabels.map((healthLabel, index) => (
-                  <Box
-                    key={index}
-                    fontWeight={"bold"}
-                    fontSize={"x-small"}
-                    bg='purple.100'
-                    gridGap={2}
-                    w={"fit-content"}>
-                    {healthLabel.toUpperCase()}
+              <Box
+                display={"flex"}
+                justifyContent={"center"}
+                paddingRight={"20px"}>
+                <Box maxWidth={"450px"}>
+                  <Box display={"block"}>
+                    <UnorderedList
+                      listStyleType={"none"}
+                      display={"flex"}
+                      flexWrap={"wrap"}
+                      width={"100%"}
+                      padding={"0"}
+                      margin={"0 0 -10px"}>
+                      {match.recipe.healthLabels.map((healthLabel) => (
+                        <ListItem
+                          key={healthLabel}
+                          marginRight={"10px"}
+                          marginBottom={"5px"}>
+                          <Box
+                            fontWeight={"bold"}
+                            bg='purple.100'
+                            fontSize={"x-small"}
+                            list-style={"none"}>
+                            {healthLabel}
+                          </Box>
+                        </ListItem>
+                      ))}
+                    </UnorderedList>
                   </Box>
-                ))}
-              </HStack>
+                </Box>
+              </Box>
             </GridItem>
 
             <GridItem marginTop={2.5}>
