@@ -17,6 +17,8 @@ import {
   Stack,
   VStack,
   Center,
+  extendTheme,
+  SimpleGrid,
 } from "@chakra-ui/react";
 
 export const RecipePage = ({ recipe, clickFn }) => {
@@ -56,55 +58,46 @@ export const RecipePage = ({ recipe, clickFn }) => {
           <Image height={40} width={"full"} src={match.recipe.image} />
         </CardHeader>
 
-        <CardBody display={"flex"} padding={6}>
-          {/* kolom links */}
-          <Grid gridTemplateRows={"20px 50px 20px 20px 1fr"} width={"50%"}>
-            <GridItem
-              color={"gray.400"}
-              fontSize={"x-small"}
-              fontWeight={"bold"}>
-              {match.recipe.mealType.join("/").toUpperCase()}
-            </GridItem>
+        <CardBody padding={6}>
+          <SimpleGrid minChildWidth='220px' spacing='40px'>
+            {/* kolom links */}
+            <Box>
+              <Box color={"gray.400"} fontSize={"x-small"} fontWeight={"bold"}>
+                {match.recipe.mealType.join("/").toUpperCase()}
+              </Box>
 
-            <GridItem
-              fontSize={"medium"}
-              fontWeight={"bolder"}
-              color={"gray.800"}>
-              {match.recipe.label}
-            </GridItem>
+              <Box fontSize={"medium"} fontWeight={"bolder"} color={"gray.800"}>
+                {" "}
+                {match.recipe.label}
+              </Box>
 
-            <GridItem fontSize={"small"}>
-              Total cooking time: {match.recipe.totalTime} minutes
-            </GridItem>
+              <Box fontSize={"small"}>
+                Total cooking time: {match.recipe.totalTime} minutes
+              </Box>
 
-            <GridItem fontSize={"small"}>
-              Servings: {match.recipe.yield}
-            </GridItem>
+              <Box fontSize={"small"}> Servings: {match.recipe.yield}</Box>
 
-            <GridItem>
               <Box fontWeight={"bold"} fontSize={"small"} marginTop={2.5}>
                 Ingredients:
               </Box>
-              <UnorderedList listStyleType={"none"} marginLeft={0}>
-                {match.recipe.ingredientLines.map((item) => (
-                  <ListItem
-                    fontSize={"small"}
-                    list-style={"none"}
-                    marginBottom={2}
-                    key={item}>
-                    {item}
-                  </ListItem>
-                ))}
-              </UnorderedList>
-            </GridItem>
-          </Grid>
 
-          {/* kolom rechts */}
-          <Grid
-            gridTemplateRows={"2fr 0.5fr 0.5fr 2fr"}
-            width={"50%"}
-            paddingLeft={6}>
-            <GridItem>
+              <Box>
+                <UnorderedList listStyleType={"none"} marginLeft={0}>
+                  {match.recipe.ingredientLines.map((item) => (
+                    <ListItem
+                      fontSize={"small"}
+                      list-style={"none"}
+                      marginBottom={2}
+                      key={item}>
+                      {item}
+                    </ListItem>
+                  ))}
+                </UnorderedList>
+              </Box>
+            </Box>
+
+            {/* kolom rechts */}
+            <Box>
               <Box fontSize={"small"}>Health Labels: </Box>
 
               <Box
@@ -138,42 +131,44 @@ export const RecipePage = ({ recipe, clickFn }) => {
                   </Box>
                 </Box>
               </Box>
-            </GridItem>
 
-            <GridItem marginTop={2.5}>
-              <Box fontSize={"small"}>Diet:</Box>
-              <Stack display={"flex"} align={"flex-start"} spacing={1}>
-                {match.recipe.dietLabels.map((dietLabel) => (
-                  <Box
-                    key={dietLabel}
-                    fontWeight={"bold"}
-                    fontSize={"x-small"}
-                    alignItems={"center"}
-                    bg='green.100'>
-                    {dietLabel.toUpperCase()}
-                  </Box>
-                ))}
-              </Stack>
-            </GridItem>
+              <Box fontSize={"small"} marginTop={3}>
+                Diet:
+              </Box>
 
-            <GridItem>
-              <Box marginTop={2} fontSize={"small"}>
+              <Box>
+                <Stack display={"flex"} align={"flex-start"} spacing={1}>
+                  {match.recipe.dietLabels.map((dietLabel) => (
+                    <Box
+                      key={dietLabel}
+                      fontWeight={"bold"}
+                      fontSize={"x-small"}
+                      alignItems={"center"}
+                      bg='green.100'>
+                      {dietLabel.toUpperCase()}
+                    </Box>
+                  ))}
+                </Stack>
+              </Box>
+
+              <Box marginTop={2.5} fontSize={"small"}>
                 Cautions:
               </Box>
-              <HStack display={"flex"} align={"flex-start"} spacing={1}>
-                {match.recipe.cautions.map((caution) => (
-                  <Box
-                    key={caution}
-                    bg='red.100'
-                    fontWeight={"bold"}
-                    fontSize={"x-small"}>
-                    {caution.toUpperCase()}
-                  </Box>
-                ))}
-              </HStack>
-            </GridItem>
 
-            <GridItem>
+              <Box>
+                <HStack display={"flex"} align={"flex-start"} spacing={1}>
+                  {match.recipe.cautions.map((caution) => (
+                    <Box
+                      key={caution}
+                      bg='red.100'
+                      fontWeight={"bold"}
+                      fontSize={"x-small"}>
+                      {caution.toUpperCase()}
+                    </Box>
+                  ))}
+                </HStack>
+              </Box>
+
               <Box
                 fontSize={"small"}
                 marginTop={2.5}
@@ -182,64 +177,69 @@ export const RecipePage = ({ recipe, clickFn }) => {
                 Total Nutrients:
               </Box>
 
-              <Grid templateColumns='repeat(4, 1fr)' gap={2} fontSize={"small"}>
-                <GridItem w='100%'>
-                  <Box>{Math.round(match.recipe.calories)}</Box>
-                  <Box>CALORIES</Box>
-                </GridItem>
+              <Box>
+                <Grid
+                  templateColumns='repeat(4, 1fr)'
+                  gap={2}
+                  fontSize={"small"}>
+                  <GridItem w='100%'>
+                    <Box>{Math.round(match.recipe.calories)}</Box>
+                    <Box>CALORIES</Box>
+                  </GridItem>
 
-                <GridItem w='100%'>
-                  <Box>
-                    {Math.round(match.recipe.totalNutrients.CHOCDF.quantity)}
-                    {match.recipe.totalNutrients.CHOCDF.unit}
-                  </Box>
-                  <Box>
-                    {match.recipe.totalNutrients.CHOCDF.label.toUpperCase()}
-                  </Box>
-                </GridItem>
+                  <GridItem w='100%'>
+                    <Box>
+                      {Math.round(match.recipe.totalNutrients.CHOCDF.quantity)}
+                      {match.recipe.totalNutrients.CHOCDF.unit}
+                    </Box>
+                    <Box>
+                      {match.recipe.totalNutrients.CHOCDF.label.toUpperCase()}
+                    </Box>
+                  </GridItem>
 
-                <GridItem w='100%'>
-                  <Box>
-                    {Math.round(match.recipe.totalNutrients.PROCNT.quantity)}
-                    {match.recipe.totalNutrients.PROCNT.unit}
-                  </Box>
-                  <Box>
-                    {match.recipe.totalNutrients.PROCNT.label.toUpperCase()}
-                  </Box>
-                </GridItem>
+                  <GridItem w='100%'>
+                    <Box>
+                      {Math.round(match.recipe.totalNutrients.PROCNT.quantity)}
+                      {match.recipe.totalNutrients.PROCNT.unit}
+                    </Box>
+                    <Box>
+                      {match.recipe.totalNutrients.PROCNT.label.toUpperCase()}
+                    </Box>
+                  </GridItem>
 
-                <GridItem w='100%'>
-                  <Box>
-                    {Math.round(match.recipe.totalNutrients.FAT.quantity)}
-                    {match.recipe.totalNutrients.FAT.unit}
-                  </Box>
-                  <Box>
-                    {match.recipe.totalNutrients.FAT.label.toUpperCase()}
-                  </Box>
-                </GridItem>
+                  <GridItem w='100%'>
+                    <Box>
+                      {Math.round(match.recipe.totalNutrients.FAT.quantity)}
+                      {match.recipe.totalNutrients.FAT.unit}
+                    </Box>
+                    <Box>
+                      {match.recipe.totalNutrients.FAT.label.toUpperCase()}
+                    </Box>
+                  </GridItem>
 
-                <GridItem w='100%'>
-                  <Box>
-                    {Math.round(match.recipe.totalNutrients.CHOLE.quantity)}
-                    {match.recipe.totalNutrients.CHOLE.unit}
-                  </Box>
-                  <Box>
-                    {match.recipe.totalNutrients.CHOLE.label.toUpperCase()}
-                  </Box>
-                </GridItem>
+                  <GridItem w='100%'>
+                    <Box>
+                      {Math.round(match.recipe.totalNutrients.CHOLE.quantity)}
+                      {match.recipe.totalNutrients.CHOLE.unit}
+                    </Box>
+                    <Box>
+                      {match.recipe.totalNutrients.CHOLE.label.toUpperCase()}
+                    </Box>
+                  </GridItem>
 
-                <GridItem w='100%'>
-                  <Box>
-                    {Math.round(match.recipe.totalNutrients.NA.quantity)}
-                    {match.recipe.totalNutrients.NA.unit}
-                  </Box>
-                  <Box>
-                    {match.recipe.totalNutrients.NA.label.toUpperCase()}
-                  </Box>
-                </GridItem>
-              </Grid>
-            </GridItem>
-          </Grid>
+                  <GridItem w='100%'>
+                    <Box>
+                      {Math.round(match.recipe.totalNutrients.NA.quantity)}
+                      {match.recipe.totalNutrients.NA.unit}
+                    </Box>
+                    <Box>
+                      {match.recipe.totalNutrients.NA.label.toUpperCase()}
+                    </Box>
+                  </GridItem>
+                </Grid>
+              </Box>
+            </Box>
+          </SimpleGrid>
         </CardBody>
       </Card>
     </>
