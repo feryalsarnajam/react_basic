@@ -47,13 +47,17 @@ export const RecipeListPage = ({ clickFn }) => {
             key={item.recipe.label}
             onClick={() => clickFn(item.recipe.label)}>
             <CardHeader padding={0}>
-              <Image
-                height={40}
-                width={"full"}
-                src={item.recipe.image}
-                borderTopLeftRadius='md'
-                borderTopRightRadius='md'
-              />
+              <Box width={"100%"} height={"180px"} overflow={"hidden"}>
+                <Image
+                  objectFit={"cover"}
+                  objectPosition={"center"}
+                  width={"100%"}
+                  height={"100%"}
+                  src={item.recipe.image}
+                  borderTopLeftRadius='md'
+                  borderTopRightRadius='md'
+                />
+              </Box>
             </CardHeader>
 
             <CardBody

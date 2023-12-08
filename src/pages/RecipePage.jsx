@@ -15,9 +15,6 @@ import {
   Box,
   HStack,
   Stack,
-  VStack,
-  Center,
-  extendTheme,
   SimpleGrid,
 } from "@chakra-ui/react";
 
@@ -55,7 +52,15 @@ export const RecipePage = ({ recipe, clickFn }) => {
             </Box>
           </Flex>
 
-          <Image height={40} width={"full"} src={match.recipe.image} />
+          <Box width={"100%"} height={"300px"} overflow={"hidden"}>
+            <Image
+              objectFit={"cover"}
+              objectPosition={"center"}
+              width={"100%"}
+              height={"100%"}
+              src={match.recipe.image}
+            />
+          </Box>
         </CardHeader>
 
         <CardBody padding={6}>
